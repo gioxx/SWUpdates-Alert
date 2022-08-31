@@ -2,7 +2,7 @@ name: Sw Check - Firefox
 
 on:
   schedule:
-  - cron: '00 0 * * *'
+  - cron: '30 9 * * *'
   workflow_dispatch:
 
 jobs:
