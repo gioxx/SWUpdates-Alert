@@ -31,7 +31,7 @@ jobs:
       with:
         commit_message: Update Notepad++ version file
         push_options: '--force'
-        skip_dirty_check: true
+        skip_dirty_check: false
         skip_fetch: true
         skip_checkout: true
         disable_globbing: true
