@@ -26,14 +26,11 @@ def checkversion(fxversion,channel):
         print("New version of " + channel + " is available: %s, i'm updating version file." % fxversion)
         writenewversion(os.path.join("updates",channel),fxversion)
         if (channel == "FIREFOX_ESR"):
-            sendtotelegram("👨🏽‍💻 Firefox ESR: new version available! %s" % fxversion)
-            sendtotelegram("Download from https://www.mozilla.org/firefox/enterprise/#download")
+            sendtotelegram("👨🏽‍💻 Firefox ESR: new version available! %s \nDownload from https://www.mozilla.org/firefox/enterprise/#download" % fxversion)
         elif (channel == "LATEST_FIREFOX_VERSION"):
-            sendtotelegram("👨🏽‍💻 Firefox (Stable): new version available! %s" % fxversion)
-            sendtotelegram("Download from https://www.mozilla.org/firefox/new/")
+            sendtotelegram("👨🏽‍💻 Firefox (Stable): new version available! %s \nDownload from https://www.mozilla.org/firefox/new/" % fxversion)
         else:
-            sendtotelegram("👨🏽‍💻 %s: new version available! %s" % channel,fxversion)
-            sendtotelegram("Download from https://www.mozilla.org/firefox/browsers/")
+            sendtotelegram("👨🏽‍💻 %s: new version available! %s \nDownload from https://www.mozilla.org/firefox/browsers/" % channel,fxversion)
     else:
         print("Latest " + channel + " is the same of the repository, skip.")
 

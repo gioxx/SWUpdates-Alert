@@ -28,8 +28,7 @@ def checkversion(fzversion):
     if (fzversion != checkrepo(os.path.join("updates","LATEST_FILEZILLA"))):
         print("New version of FileZilla is available: %s, i'm updating version file." % fzversion)
         writenewversion(os.path.join("updates","LATEST_FILEZILLA"),fzversion)
-        sendtotelegram("🔌 FileZilla: new version available! %s" % fzversion)
-        sendtotelegram("Download from https://filezilla-project.org/download.php?show_all=1")
+        sendtotelegram("🔌 FileZilla: new version available! %s \nDownload from https://filezilla-project.org/download.php?show_all=1" % fzversion)
     else:
         print("Latest FileZilla is the same of the repository, skip.")
 
