@@ -6,17 +6,19 @@ import json
 import os
 import os.path
 import sys
+import re
 from jsondiff import diff
 from include_tgram import *
 
-def sourceJson(path):
+# New method credits: https://github.com/0install/apps/blob/master/gui/filezilla.watch.py
+
+def sourceWeb(path):
     if (not os.environ.get('PYTHONHTTPSVERIFY', '') and getattr(ssl, '_create_unverified_context', None)): # Credits: https://moreless.medium.com/how-to-fix-python-ssl-certificate-verify-failed-97772d9dd14c
         ssl._create_default_https_context = ssl._create_unverified_context
-    urllib.request.urlretrieve(path,"filezilla.json")
-    with open("filezilla.json", 'r') as f:
-        response = json.load(f)
-    os.remove("filezilla.json")
-    return response["version"]
+    data = urllib.request.urlopen(path).read().decode('utf-8')
+    matches = re.findall(r'<h3>([0-9\.]+) \((....-..-..)\)</h3>', data)
+    releases = [{'version': match[0], 'released': match[1]} for match in matches if int(match[1][0:4]) >= 2022]
+    return releases[0]["version"]
 
 def checkrepo(updates_file):
     with open(updates_file, "r") as f:
@@ -37,5 +39,5 @@ def writenewversion(updates_file,newversion):
         readversion.write(newversion)
     return
 
-fzversion = sourceJson("https://raw.githubusercontent.com/akirco/aki-apps/master/bucket/filezilla.json")
+fzversion = sourceWeb("https://filezilla-project.org/versions.php")
 checkversion(fzversion)
