@@ -28,7 +28,7 @@ def checkversion(nppversion):
     if (nppversion != checkrepo(os.path.join("updates","LATEST_NPP"))):
         print("New version of Notepad++ is available: %s, i'm updating version file." % nppversion)
         writenewversion(os.path.join("updates","LATEST_NPP"),nppversion)
-        sendtotelegram("📝 Notepad%s%s: new version available! %s \nDownload from %s" % ("+","+",nppversion,nppJson["html_url"]))
+        sendtotelegram("📝 Notepad➕➕: new version available! %s \nDownload from %s" % (nppversion,nppJson["html_url"]))
     else:
         print("Latest Notepad++ is the same of the repository, skip.")
 
