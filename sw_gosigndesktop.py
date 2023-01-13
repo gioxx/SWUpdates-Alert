@@ -24,7 +24,7 @@ def checkversion(gsdmd5):
     if (gsdmd5 != checkrepo(os.path.join("updates","LATEST_GOSIGNDESKTOP"))):
         print("New version of GoSign Desktop is available: %s, i'm updating version file." % gsdmd5)
         writenewversion(os.path.join("updates","LATEST_GOSIGNDESKTOP"),gsdmd5)
-        #sendtotelegram("✏️ GoSign Desktop: new version available! Updated MD5: %s \nDownload from https://rinnovofirma.infocert.it/gosign/download/win32/latest/" % gsdmd5)
+        sendtotelegram("✏️ GoSign Desktop: new version available! Updated MD5: %s \nDownload from https://rinnovofirma.infocert.it/gosign/download/win32/latest/" % gsdmd5)
     else:
         print("Latest GoSign Desktop is the same of the repository, skip.")
 
