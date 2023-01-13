@@ -1,11 +1,8 @@
-import requests
 import urllib.request
 import ssl
-import base64
 import json
 import os
 import os.path
-import sys
 from jsondiff import diff
 from include_tgram import *
 
