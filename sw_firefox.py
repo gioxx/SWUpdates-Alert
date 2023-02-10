@@ -1,4 +1,4 @@
-import urllib.request
+import requests
 import json
 import os
 import os.path
@@ -6,10 +6,11 @@ from jsondiff import diff
 from include_tgram import *
 
 def sourceJson(path,channel):
-    urllib.request.urlretrieve(path,"firefox_versions.json")
-    with open("firefox_versions.json", 'r') as f:
-        response = json.load(f)
-    os.remove("firefox_versions.json")
+    #urllib.request.urlretrieve(path,"firefox_versions.json")
+    #with open("firefox_versions.json", 'r') as f:
+    #    response = json.load(f)
+    #os.remove("firefox_versions.json")
+    response = json.loads(requests.get(path).text)
     return response[channel]
 
 def checkrepo(updates_file):
