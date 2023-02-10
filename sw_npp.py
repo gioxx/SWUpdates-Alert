@@ -1,4 +1,5 @@
 import urllib.request
+import requests
 import ssl
 import json
 import os
@@ -10,9 +11,10 @@ def sourceJson(path):
     if (not os.environ.get('PYTHONHTTPSVERIFY', '') and getattr(ssl, '_create_unverified_context', None)): # Credits: https://moreless.medium.com/how-to-fix-python-ssl-certificate-verify-failed-97772d9dd14c
         ssl._create_default_https_context = ssl._create_unverified_context
     urllib.request.urlretrieve(path,"npp.json")
-    with open("npp.json", 'r') as f:
-        response = json.load(f)
-    os.remove("npp.json")
+    response = json.loads(requests.get(path).text)
+    #with open("npp.json", 'r') as f:
+    #    response = json.load(f)
+    #os.remove("npp.json")
     return response
 
 def checkrepo(updates_file):
