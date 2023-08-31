@@ -6,10 +6,6 @@ from jsondiff import diff
 from include_tgram import *
 
 def sourceJson(path,channel):
-    #urllib.request.urlretrieve(path,"firefox_versions.json")
-    #with open("firefox_versions.json", 'r') as f:
-    #    response = json.load(f)
-    #os.remove("firefox_versions.json")
     response = json.loads(requests.get(path).text)
     return response[channel]
 
@@ -24,11 +20,11 @@ def checkversion(fxversion,channel):
         print("New version of " + channel + " is available: %s, i'm updating version file." % fxversion)
         writenewversion(os.path.join("updates",channel),fxversion)
         if (channel == "FIREFOX_ESR"):
-            sendtotelegram("👨🏽‍💻 Firefox ESR: new version available! %s \nDownload from https://www.mozilla.org/firefox/enterprise/#download" % fxversion)
+            sendtotelegram("👨🏽‍💻 Firefox ESR: new version %s now available! \nDownload from https://www.mozilla.org/firefox/enterprise/#download" % fxversion)
         elif (channel == "LATEST_FIREFOX_VERSION"):
-            sendtotelegram("👨🏽‍💻 Firefox (Stable): new version available! %s \nDownload from https://www.mozilla.org/firefox/new/" % fxversion)
+            sendtotelegram("👨🏽‍💻 Firefox (Stable): new version %s available! \nDownload from https://www.mozilla.org/firefox/new/" % fxversion)
         else:
-            sendtotelegram("👨🏽‍💻 %s: new version available! %s \nDownload from https://www.mozilla.org/firefox/browsers/" % channel,fxversion)
+            sendtotelegram("👨🏽‍💻 %s: new version %s available! \nDownload from https://www.mozilla.org/firefox/browsers/" % channel,fxversion)
     else:
         print("Latest " + channel + " is the same of the repository, skip.")
 
