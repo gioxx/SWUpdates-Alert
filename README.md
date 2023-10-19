@@ -2,7 +2,6 @@
 [![Sw Check - 7-Zip](https://github.com/gioxx/SWUpdates-Alert/actions/workflows/sw_7zip.yml/badge.svg)](https://github.com/gioxx/SWUpdates-Alert/actions/workflows/sw_7zip.yml)   
 [![Sw Check - FileZilla](https://github.com/gioxx/SWUpdates-Alert/actions/workflows/sw_filezilla.yml/badge.svg)](https://github.com/gioxx/SWUpdates-Alert/actions/workflows/sw_filezilla.yml)   
 [![Sw Check - Firefox](https://github.com/gioxx/SWUpdates-Alert/actions/workflows/sw_firefox.yml/badge.svg)](https://github.com/gioxx/SWUpdates-Alert/actions/workflows/sw_firefox.yml)   
-[![Sw Check - GoSign Desktop](https://github.com/gioxx/SWUpdates-Alert/actions/workflows/sw_gosigndesktop.yml/badge.svg)](https://github.com/gioxx/SWUpdates-Alert/actions/workflows/sw_gosigndesktop.yml)  
 [![Sw Check - Notepad++](https://github.com/gioxx/SWUpdates-Alert/actions/workflows/sw_npp.yml/badge.svg)](https://github.com/gioxx/SWUpdates-Alert/actions/workflows/sw_npp.yml)   
 [![Sw Check - XmlNotepad](https://github.com/gioxx/SWUpdates-Alert/actions/workflows/sw_xmlnp.yml/badge.svg)](https://github.com/gioxx/SWUpdates-Alert/actions/workflows/sw_xmlnp.yml)   
 
