@@ -4,6 +4,7 @@
 [![Sw Check - Firefox](https://github.com/gioxx/SWUpdates-Alert/actions/workflows/sw_firefox.yml/badge.svg)](https://github.com/gioxx/SWUpdates-Alert/actions/workflows/sw_firefox.yml)   
 [![Sw Check - Firma4NG](https://github.com/gioxx/SWUpdates-Alert/actions/workflows/sw_firma4ng.yml/badge.svg)](https://github.com/gioxx/SWUpdates-Alert/actions/workflows/sw_firma4ng.yml)   
 [![Sw Check - Notepad++](https://github.com/gioxx/SWUpdates-Alert/actions/workflows/sw_npp.yml/badge.svg)](https://github.com/gioxx/SWUpdates-Alert/actions/workflows/sw_npp.yml)   
+[![Sw Check - PuTTY](https://github.com/gioxx/SWUpdates-Alert/actions/workflows/sw_putty.yml/badge.svg)](https://github.com/gioxx/SWUpdates-Alert/actions/workflows/sw_putty.yml)   
 [![Sw Check - XmlNotepad](https://github.com/gioxx/SWUpdates-Alert/actions/workflows/sw_xmlnp.yml/badge.svg)](https://github.com/gioxx/SWUpdates-Alert/actions/workflows/sw_xmlnp.yml)   
 
 **Segui il canale Telegram!**  
