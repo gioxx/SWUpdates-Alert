@@ -22,7 +22,7 @@ def checkversion(imgmgckversion):
     if (imgmgckversion != checkrepo(os.path.join("updates","LATEST_IMGMGCK"))):
         print("New version of ImageMagick is available: %s, i'm updating version file." % imgmgckversion)
         writenewversion(os.path.join("updates","LATEST_IMGMGCK"),imgmgckversion)
-        sendtotelegram("🖼️ ImageMagick: new version available! %s \nDownload from %s" % (imgmgckversion,imgmgckJson["html_url"]))
+        sendtotelegram("🖼️ ImageMagick: new version available! %s \nDownload from %s (or, as alternative, https://imagemagick.org/script/download.php)" % (imgmgckversion,imgmgckJson["html_url"]))
     else:
         print("Latest ImageMagick is the same of the repository, skip.")
 
