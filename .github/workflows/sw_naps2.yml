@@ -11,9 +11,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4.1.1
+    - uses: "actions/checkout@v4.2.2"
     - name: Set up Python 3.10
-      uses: actions/setup-python@v5.0.0
+      uses: "actions/setup-python@v5.4.0"
       with:
         python-version: "3.10"
     - name: Install dependencies
@@ -23,11 +23,11 @@ jobs:
     - name: Check Software Update
       run: python sw_naps2.py
       env:
-          TGRAMTOKEN: ${{ secrets.TGRAMTOKEN }}
-          TGRAMCHATID: ${{ secrets.TGRAMCHATID }}
-          
+        TGRAMTOKEN: ${{ secrets.TGRAMTOKEN }}
+        TGRAMCHATID: ${{ secrets.TGRAMCHATID }}
+
     - name: Commit changes
-      uses: stefanzweifel/git-auto-commit-action@v4
+      uses: "stefanzweifel/git-auto-commit-action@v5.1.0"
       with:
         commit_message: Update NAPS2 version file
         push_options: '--force'
