@@ -4,8 +4,12 @@ import os
 from include_tgram import *
 
 def get_latest_version_from_html(url):
+    session = requests.Session()
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+    }
     try:
-        response = requests.get(url, timeout=10)
+        response = session.get(url, headers=headers, timeout=10)
         response.raise_for_status()
         html_content = response.text
 
