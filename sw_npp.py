@@ -1,35 +1,18 @@
-import requests
-import ssl
-import json
 import os
-import os.path
-from jsondiff import diff
-from include_tgram import *
+from core.version_check import fetch_json, run_check
 
-def sourceJson(path):
-    if (not os.environ.get('PYTHONHTTPSVERIFY', '') and getattr(ssl, '_create_unverified_context', None)): # Credits: https://moreless.medium.com/how-to-fix-python-ssl-certificate-verify-failed-97772d9dd14c
-        ssl._create_default_https_context = ssl._create_unverified_context
-    response = json.loads(requests.get(path).text)
-    return response
+URL = "https://api.github.com/repos/notepad-plus-plus/notepad-plus-plus/releases/latest"
 
-def checkrepo(updates_file):
-    with open(updates_file, "r") as f:
-        content = f.read()
-        first_line = content.split('\n', 1)[0]
-    return first_line
 
-def checkversion(nppversion):
-    if (nppversion != checkrepo(os.path.join("updates","LATEST_NPP"))):
-        print("New version of Notepad++ is available: %s, i'm updating version file." % nppversion)
-        writenewversion(os.path.join("updates","LATEST_NPP"),nppversion)
-        sendtotelegram("📝 Notepad➕➕: new version available! %s \nDownload from %s" % (nppversion,nppJson["html_url"]))
-    else:
-        print("Latest Notepad++ is the same of the repository, skip.")
+def fetch_npp():
+    data = fetch_json(URL)
+    return {"version": data["tag_name"], "url": data["html_url"]}
 
-def writenewversion(updates_file,newversion):
-    with open(updates_file, "w") as readversion:
-        readversion.write(newversion)
-    return
 
-nppJson = sourceJson("https://api.github.com/repos/notepad-plus-plus/notepad-plus-plus/releases/latest") # Credits: https://stackoverflow.com/a/60716112/2220346
-checkversion(nppJson["tag_name"])
+if __name__ == "__main__":
+    run_check(
+        "Notepad++",
+        fetch_npp,
+        os.path.join("updates", "LATEST_NPP"),
+        "\U0001F4DD Notepad\u2795\u2795: new version available! {version} \nDownload from {url}",
+    )
