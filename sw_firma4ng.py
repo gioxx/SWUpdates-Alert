@@ -1,16 +1,12 @@
 import hashlib
 import os
-import ssl
-import urllib.request
-from core.version_check import run_check
+from core.version_check import run_check, fetch_url
 
 URL = "https://card.infocamere.it/infocard/FileDocManager/download?file=/firma4ng/Firma4ng_win.zip"
 
 
 def fetch_firma4ng():
-    if not os.environ.get('PYTHONHTTPSVERIFY', '') and getattr(ssl, '_create_unverified_context', None):
-        ssl._create_default_https_context = ssl._create_unverified_context
-    data = urllib.request.urlopen(URL).read()
+    data = fetch_url(URL, verify_ssl=False).content
     md5 = hashlib.md5()
     md5.update(data)
     return {"version": md5.hexdigest()}

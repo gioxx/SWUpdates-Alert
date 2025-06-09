@@ -6,3 +6,7 @@ https://t.me/SWUpdate
 
 **Vuoi saperne di più sul progetto?** Leggi l'articolo dedicato su Gioxx's Wall:
 https://gioxx.org/2022/09/19/swupdates-alert-rimani-aggiornato-sul-rilascio-delle-applicazioni/
+
+Alcune fonti di aggiornamento utilizzano certificati HTTPS obsoleti. In questi
+casi gli script disabilitano temporaneamente il controllo dei certificati per
+consentire il download dei dati.
