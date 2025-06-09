@@ -10,3 +10,5 @@ https://gioxx.org/2022/09/19/swupdates-alert-rimani-aggiornato-sul-rilascio-dell
 Alcune fonti di aggiornamento utilizzano certificati HTTPS obsoleti. In questi
 casi gli script disabilitano temporaneamente il controllo dei certificati per
 consentire il download dei dati.
+
+Quando non è possibile determinare la versione di un'applicazione, il controllo viene ignorato e il file di versione non viene aggiornato.
