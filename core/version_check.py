@@ -6,18 +6,22 @@ from include_tgram import sendtotelegram
 
 def fetch_url(url, verify_ssl=True):
     """Return a requests.Response object with optional SSL verification."""
-    if (
-        not verify_ssl
-        and not os.environ.get("PYTHONHTTPSVERIFY", "")
-        and getattr(ssl, "_create_unverified_context", None)
-    ):
-        ssl._create_default_https_context = ssl._create_unverified_context
-        requests.packages.urllib3.disable_warnings(
-            requests.packages.urllib3.exceptions.InsecureRequestWarning
-        )
-    response = requests.get(url, verify=verify_ssl)
-    response.raise_for_status()
-    return response
+    original_context = ssl._create_default_https_context
+    try:
+        if (
+            not verify_ssl
+            and not os.environ.get("PYTHONHTTPSVERIFY", "")
+            and getattr(ssl, "_create_unverified_context", None)
+        ):
+            ssl._create_default_https_context = ssl._create_unverified_context
+            requests.packages.urllib3.disable_warnings(
+                requests.packages.urllib3.exceptions.InsecureRequestWarning
+            )
+        response = requests.get(url, verify=verify_ssl)
+        response.raise_for_status()
+        return response
+    finally:
+        ssl._create_default_https_context = original_context
 
 
 def fetch_json(url, verify_ssl=True):
