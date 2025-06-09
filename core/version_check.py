@@ -53,6 +53,9 @@ def run_check(name, fetch_fn, version_file, message_fmt):
     else:
         version = data
         data = {'version': version}
+    if version is None:
+        print(f"Warning: {name} version could not be determined, skipping check.")
+        return
     repo_version = read_repo_version(version_file)
     if version != repo_version:
         print(f"New version of {name} is available: {version}, updating version file.")
