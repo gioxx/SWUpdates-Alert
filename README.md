@@ -21,6 +21,7 @@ For more details about the project, see the dedicated article on Gioxx's Wall: <
 | Firefox (stable and ESR)  | Mozilla Firefox, or simply Firefox, is a free and open-source web browser developed by the Mozilla Foundation and its subsidiary, the Mozilla Corporation. | [mozilla.org/firefox](https://www.mozilla.org/firefox/) |
 | Firma4NG  | firma4ng is a professional digital signature application, compatible with Windows, Linux and Mac OS X operating systems. | [infocamere.it](https://id.infocamere.it/download_software.html) |
 | ImageMagick  | ImageMagick is a free and open-source cross-platform software suite for displaying, creating, converting, modifying, and editing raster images. | [imagemagick.org](https://imagemagick.org/) |
+| IrfanView  | IrfanView is a fast and compact image viewer for Windows. | [irfanview.com](https://www.irfanview.com/) |
 | NAPS2  | NAPS2 is free and open source scanning software for Windows, Mac and Linux. | [naps2.com](https://www.naps2.com/) |
 | Notepad++  | Notepad++ is a text and source code editor for use with Microsoft Windows. It supports tabbed editing, which allows working with multiple open files in one window. | [notepad-plus-plus.org](http://notepad-plus-plus.org/) |
 | PuTTY  | PuTTY is a free and open-source terminal emulator, serial console and network file transfer application. | [chiark.greenend.org.uk/~sgtatham](https://www.chiark.greenend.org.uk/~sgtatham/putty/) |
@@ -83,6 +84,7 @@ Per maggiori dettagli sul progetto puoi leggere l'articolo dedicato su Gioxx's W
 | Firefox (stable and ESR)  | Mozilla Firefox, o semplicemente Firefox, è un browser web gratuito e open-source sviluppato dalla Mozilla Foundation e dalla sua filiale, la Mozilla Corporation. | [mozilla.org/firefox](https://www.mozilla.org/firefox/) |
 | Firma4NG  | firma4ng è un’applicazione professionale di firma digitale, compatibile con i sistemi operativi Windows, Linux e Mac OS X. | [infocamere.it](https://id.infocamere.it/download_software.html) |
 | ImageMagick  | ImageMagick è una suite software multipiattaforma gratuita e open-source per la visualizzazione, la creazione, la conversione, la modifica e l'editing di immagini raster. | [imagemagick.org](https://imagemagick.org/) |
+| IrfanView  | IrfanView è un visualizzatore di immagini veloce e compatto per Windows. | [irfanview.com](https://www.irfanview.com/) |
 | NAPS2  | NAPS2 è un software di scansione gratuito e open source per Windows, Mac e Linux. | [naps2.com](https://www.naps2.com/) |
 | Notepad++  | Notepad++ è un editor di testo e codice sorgente da utilizzare con Microsoft Windows. Supporta l'editing a schede, che consente di lavorare con più file aperti in un'unica finestra. | [notepad-plus-plus.org](http://notepad-plus-plus.org/) |
 | PuTTY  | PuTTY è un emulatore di terminale, una console seriale e un'applicazione per il trasferimento di file in rete gratuita e open-source. | [chiark.greenend.org.uk/~sgtatham](https://www.chiark.greenend.org.uk/~sgtatham/putty/) |

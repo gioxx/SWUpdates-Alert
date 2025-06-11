@@ -19,6 +19,7 @@ jobs:
           - sw_firefox.py
           - sw_firma4ng.py
           - sw_imgmgck.py
+          - sw_irfanview.py
           - sw_naps2.py
           - sw_npp.py
           - sw_win32cpt.py
