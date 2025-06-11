@@ -21,6 +21,7 @@ jobs:
           - sw_imgmgck.py
           - sw_naps2.py
           - sw_npp.py
+          - sw_win32cpt.py
           - sw_putty.py
           - sw_xmlnp.py
     steps:
