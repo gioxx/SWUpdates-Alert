@@ -8,7 +8,7 @@ URL = "https://update.filezilla-project.org/update.php?type=client&channel=relea
 
 def fetch_filezilla():
     try:
-        data = fetch_json(URL)
+        data = fetch_json(URL, verify_ssl=False)
         return data.get("version")
     except requests.RequestException as e:
         print(f"Error fetching FileZilla update information: {e}")
