@@ -5,7 +5,16 @@ from include_tgram import sendtotelegram
 
 
 def fetch_url(url, verify_ssl=True):
-    """Return a requests.Response object with optional SSL verification."""
+    """Return a requests.Response object with optional SSL verification and GitHub Actions token support."""
+    import requests
+    import ssl
+
+    headers = {}
+    github_token = os.environ.get("GITHUB_TOKEN")
+    from urllib.parse import urlparse
+    if github_token and urlparse(url).hostname == "api.github.com":
+        headers["Authorization"] = f"token {github_token}"
+
     original_context = ssl._create_default_https_context
     try:
         if (
@@ -17,15 +26,14 @@ def fetch_url(url, verify_ssl=True):
             requests.packages.urllib3.disable_warnings(
                 requests.packages.urllib3.exceptions.InsecureRequestWarning
             )
-        response = requests.get(url, verify=verify_ssl)
+        response = requests.get(url, headers=headers, verify=verify_ssl)
         response.raise_for_status()
         return response
     finally:
         ssl._create_default_https_context = original_context
 
-
 def fetch_json(url, verify_ssl=True):
-    """Retrieve JSON data from URL with optional SSL verification."""
+    """Retrieve JSON data from URL with optional SSL verification and GitHub Actions token support."""
     response = fetch_url(url, verify_ssl=verify_ssl)
     return response.json()
 
