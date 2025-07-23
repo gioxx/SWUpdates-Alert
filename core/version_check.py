@@ -11,7 +11,8 @@ def fetch_url(url, verify_ssl=True):
 
     headers = {}
     github_token = os.environ.get("GITHUB_TOKEN")
-    if github_token and "api.github.com" in url:
+    from urllib.parse import urlparse
+    if github_token and urlparse(url).hostname == "api.github.com":
         headers["Authorization"] = f"token {github_token}"
 
     original_context = ssl._create_default_https_context
