@@ -1,2 +1,2 @@
-feedparser
-requests
+feedparser>=6.0.12
+requests>=2.32.5
