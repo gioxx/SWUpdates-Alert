@@ -6,7 +6,7 @@
 
 ## English version
 
-SWUpdates-Alert automates version checks for various software and sends a Telegram notification whenever a new release is published. Each script in the repository monitors a specific application and keeps the related file inside the `updates/` folder up to date.
+SWUpdates-Alert automates version checks for various software and sends a Telegram notification whenever a new release is published. A single script, `check.py`, monitors every application and keeps the related file inside the `updates/` folder up to date.
 
 **Follow the Telegram channel**: <https://t.me/SWUpdate>
 
@@ -28,7 +28,7 @@ For more details about the project, see the dedicated article on Gioxx's Wall: <
 | Win32 Content Prep Tool  | Microsoft Win32 Content Prep Tool converts application installation files into the .intunewin format. | [github.com/microsoft](https://github.com/microsoft/Microsoft-Win32-Content-Prep-Tool) |
 | XML Notepad  | XML Notepad is an open-source XML editor written by Chris Lovett and published by Microsoft. | [microsoft.github.io/XmlNotepad](http://microsoft.github.io/XmlNotepad/) |
 
-Daily checks run via [GitHub Actions](.github/workflows/software.yml) which launches each script independently.
+Daily checks run via [GitHub Actions](.github/workflows/software.yml) in a single job. A failing source does not stop the other checks: the versions found are still committed and the run is marked as failed at the end.
 
 ## Requirements
 - Python 3.10 or later
@@ -40,17 +40,18 @@ pip install -r requirements.txt
 ```
 
 ### Environment variables
-The scripts send notifications using a Telegram bot. Before running them define:
+The script sends notifications using a Telegram bot. Before running them define:
 
 - `TGRAMTOKEN` – Telegram bot token
 - `TGRAMCHATID` – ID of the chat or channel that receives the messages
 
-Some update sources use outdated HTTPS certificates, so SSL verification is temporarily disabled when downloading the data (for example this happens with FileZilla). When a software version cannot be determined, the script is skipped and the file under `updates/` is left unchanged.
+Some update sources use outdated HTTPS certificates, so SSL verification is temporarily disabled when downloading the data (for example this happens with FileZilla). When a software version cannot be determined, the check is skipped and the file under `updates/` is left unchanged.
 
 ## Manual execution
-Each script can be run individually, for example:
+Run every check, or only the ones named on the command line (case-insensitive):
 ```bash
-python sw_firefox.py
+python check.py
+python check.py firefox "firefox esr"
 ```
 If a new version is found the file in the `updates/` folder is updated and a message is sent on Telegram.
 
@@ -70,7 +71,7 @@ This project is released under the [MIT](LICENSE) license.
 
 ## Versione italiana
 
-SWUpdates-Alert automatizza il controllo delle versioni di diversi software e invia una notifica su Telegram quando viene pubblicato un nuovo rilascio. Ogni script della repository monitora un'applicazione specifica e mantiene aggiornato il file corrispondente all'interno della cartella `updates/`.
+SWUpdates-Alert automatizza il controllo delle versioni di diversi software e invia una notifica su Telegram quando viene pubblicato un nuovo rilascio. Un unico script, `check.py`, monitora tutte le applicazioni e mantiene aggiornato il file corrispondente all'interno della cartella `updates/`.
 
 **Segui il canale Telegram**: <https://t.me/SWUpdate>
 
@@ -91,7 +92,7 @@ Per maggiori dettagli sul progetto puoi leggere l'articolo dedicato su Gioxx's W
 | Win32 Content Prep Tool  | Microsoft Win32 Content Prep Tool converte i file di installazione delle applicazioni nel formato .intunewin. | [github.com/microsoft](https://github.com/microsoft/Microsoft-Win32-Content-Prep-Tool) |
 | XML Notepad  | XML Notepad è un editor XML open-source scritto da Chris Lovett e pubblicato da Microsoft. | [microsoft.github.io/XmlNotepad](http://microsoft.github.io/XmlNotepad/) |
 
-L'esecuzione quotidiana avviene tramite [GitHub Actions](.github/workflows/software.yml) che lancia ogni script in modo indipendente.
+L'esecuzione quotidiana avviene tramite [GitHub Actions](.github/workflows/software.yml) in un unico job. Una fonte che non risponde non blocca gli altri controlli: le versioni trovate vengono comunque salvate e la run viene segnata come fallita alla fine.
 
 ## Requisiti
 - Python 3.10 o superiore
@@ -103,18 +104,19 @@ pip install -r requirements.txt
 ```
 
 ### Variabili d'ambiente
-Gli script inviano notifiche tramite un bot Telegram. Prima dell'esecuzione definisci:
+Lo script invia notifiche tramite un bot Telegram. Prima dell'esecuzione definisci:
 
 - `TGRAMTOKEN` – token del bot Telegram
 - `TGRAMCHATID` – ID della chat o del canale destinatario
 
 Alcune fonti di aggiornamento utilizzano certificati HTTPS obsoleti: in questi casi la verifica SSL viene disattivata temporaneamente per consentire il download dei dati (ad esempio accade con FileZilla).
-Quando non è possibile determinare la versione di un software, lo script viene ignorato e il file in `updates/` rimane invariato.
+Quando non è possibile determinare la versione di un software, il controllo viene saltato e il file in `updates/` rimane invariato.
 
 ## Esecuzione manuale
-Ogni script può essere lanciato singolarmente, ad esempio:
+Esegui tutti i controlli, oppure solo quelli indicati da riga di comando (senza distinzione tra maiuscole e minuscole):
 ```bash
-python sw_firefox.py
+python check.py
+python check.py firefox "firefox esr"
 ```
 Se viene rilevata una nuova versione il file nella cartella `updates/` viene aggiornato e un messaggio viene inviato su Telegram.
 
