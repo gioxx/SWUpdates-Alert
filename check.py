@@ -5,15 +5,16 @@ import re
 import sys
 import traceback
 
-import requests
-
 from core.version_check import fetch_json, fetch_url, run_check
 
-FILEZILLA_URL = "https://update.filezilla-project.org/update.php?type=client&channel=release&format=1"
+FILEZILLA_URL = "https://filezilla-project.org/download.php?type=client"
+# The site answers 403 to non-browser clients (its update.php endpoint refuses third parties outright).
+BROWSER_UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0 Safari/537.36"}
 FIREFOX_URL = "https://product-details.mozilla.org/1.0/firefox_versions.json"
 FIRMA4NG_URL = "https://card.infocamere.it/infocard/FileDocManager/download?file=/firma4ng/Firma4ng_win.zip"
 IRFANVIEW_URL = "https://www.irfanview.com/"
-PUTTY_URL = "https://www.chiark.greenend.org.uk/~sgtatham/putty/changes.html"
+# Official download mirror: /latest/ redirects to /<version>/. chiark itself is often unreachable from GitHub runners.
+PUTTY_URL = "https://the.earth.li/~sgtatham/putty/latest/"
 PUTTY_DOWNLOAD_URL = "https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html"
 
 
@@ -29,11 +30,8 @@ def fetch_sevenzip():
 
 
 def fetch_filezilla():
-    try:
-        return fetch_json(FILEZILLA_URL, verify_ssl=False).get("version")
-    except requests.RequestException as e:
-        print(f"Error fetching FileZilla update information: {e}")
-        return None
+    match = re.search(r"Download FileZilla Client (\d+(?:\.\d+)+)", fetch_url(FILEZILLA_URL, headers=BROWSER_UA).text)
+    return {"version": match.group(1)} if match else None
 
 
 def fetch_firefox(channel):
@@ -62,11 +60,8 @@ def fetch_irfanview():
 
 
 def fetch_putty():
-    data = fetch_url(PUTTY_URL, verify_ssl=False).text
-    excluded_versions = ['0.45', '0.46', '0.47', '0.48', '0.49', '0.50', '0.51']
-    matches = re.findall(r'>([0-9.]+)<\/a>\n\(released (....-..-..)', data)
-    releases = [m for m in matches if m[0] not in excluded_versions]
-    return {"version": releases[0][0]}
+    match = re.search(r"/putty/(\d+(?:\.\d+)+)/$", fetch_url(PUTTY_URL).url)
+    return {"version": match.group(1)} if match else None
 
 
 # (name, fetch function, file under updates/ read by external tools: do not rename, Telegram message)

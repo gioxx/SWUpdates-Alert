@@ -24,6 +24,10 @@ class VersionFileContractTests(unittest.TestCase):
             notify.assert_called_once_with("v1.2 u")
             version_check.run_check("X", lambda: {"version": "v1.2"}, path, "{version}")
             notify.assert_called_once()
+            with self.assertRaises(ValueError):
+                version_check.run_check("X", lambda: None, path, "{version}")
+            with open(path, 'rb') as fh:
+                self.assertEqual(fh.read(), b"v1.2")
 
 
 class MainTests(unittest.TestCase):

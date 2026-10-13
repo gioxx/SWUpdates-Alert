@@ -16,9 +16,9 @@ session.mount(
 )
 
 
-def fetch_url(url, verify_ssl=True, stream=False):
+def fetch_url(url, verify_ssl=True, stream=False, headers=None):
     """Return a requests.Response, with retries, timeout and GitHub token support."""
-    headers = {}
+    headers = dict(headers or {})
     github_token = os.environ.get("GITHUB_TOKEN")
     if github_token and urlparse(url).hostname == "api.github.com":
         headers["Authorization"] = f"token {github_token}"
@@ -63,8 +63,7 @@ def run_check(name, fetch_fn, version_file, message_fmt):
         version = data
         data = {'version': version}
     if version is None:
-        print(f"Warning: {name} version could not be determined, skipping check.")
-        return
+        raise ValueError(f"{name} version could not be determined, version file left unchanged.")
     repo_version = read_repo_version(version_file)
     if version != repo_version:
         print(f"New version of {name} is available: {version}, updating version file.")
