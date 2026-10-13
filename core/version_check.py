@@ -1,41 +1,37 @@
 import os
-import ssl
+from urllib.parse import urlparse
+
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
+
 from include_tgram import sendtotelegram
 
+TIMEOUT = (10, 60)  # connect, read (seconds)
 
-def fetch_url(url, verify_ssl=True):
-    """Return a requests.Response object with optional SSL verification and GitHub Actions token support."""
-    import requests
-    import ssl
+session = requests.Session()
+session.mount(
+    "https://",
+    HTTPAdapter(max_retries=Retry(total=3, backoff_factor=5, status_forcelist=(429, 500, 502, 503, 504))),
+)
 
-    headers = {}
+
+def fetch_url(url, verify_ssl=True, stream=False, headers=None):
+    """Return a requests.Response, with retries, timeout and GitHub token support."""
+    headers = dict(headers or {})
     github_token = os.environ.get("GITHUB_TOKEN")
-    from urllib.parse import urlparse
     if github_token and urlparse(url).hostname == "api.github.com":
         headers["Authorization"] = f"token {github_token}"
+    if not verify_ssl:
+        requests.packages.urllib3.disable_warnings(requests.packages.urllib3.exceptions.InsecureRequestWarning)
+    response = session.get(url, headers=headers, verify=verify_ssl, timeout=TIMEOUT, stream=stream)
+    response.raise_for_status()
+    return response
 
-    original_context = ssl._create_default_https_context
-    try:
-        if (
-            not verify_ssl
-            and not os.environ.get("PYTHONHTTPSVERIFY", "")
-            and getattr(ssl, "_create_unverified_context", None)
-        ):
-            ssl._create_default_https_context = ssl._create_unverified_context
-            requests.packages.urllib3.disable_warnings(
-                requests.packages.urllib3.exceptions.InsecureRequestWarning
-            )
-        response = requests.get(url, headers=headers, verify=verify_ssl)
-        response.raise_for_status()
-        return response
-    finally:
-        ssl._create_default_https_context = original_context
 
 def fetch_json(url, verify_ssl=True):
-    """Retrieve JSON data from URL with optional SSL verification and GitHub Actions token support."""
-    response = fetch_url(url, verify_ssl=verify_ssl)
-    return response.json()
+    """Retrieve JSON data from URL."""
+    return fetch_url(url, verify_ssl=verify_ssl).json()
 
 
 def read_repo_version(filename):
@@ -48,6 +44,7 @@ def read_repo_version(filename):
 
 
 def write_repo_version(filename, version):
+    # Files under updates/ are read by external tools: one line, no trailing newline.
     os.makedirs(os.path.dirname(filename), exist_ok=True)
     with open(filename, 'w') as fh:
         fh.write(version)
@@ -66,8 +63,7 @@ def run_check(name, fetch_fn, version_file, message_fmt):
         version = data
         data = {'version': version}
     if version is None:
-        print(f"Warning: {name} version could not be determined, skipping check.")
-        return
+        raise ValueError(f"{name} version could not be determined, version file left unchanged.")
     repo_version = read_repo_version(version_file)
     if version != repo_version:
         print(f"New version of {name} is available: {version}, updating version file.")

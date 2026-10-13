@@ -1,50 +1,25 @@
-import ssl
 import unittest
 from unittest import mock
-import sys
-import types
 
-# Provide a minimal requests stub so the module under test can be imported
-requests_stub = types.SimpleNamespace()
-requests_stub.packages = types.SimpleNamespace(
-    urllib3=types.SimpleNamespace(
-        disable_warnings=lambda *args, **kwargs: None,
-        exceptions=types.SimpleNamespace(InsecureRequestWarning=object),
-    )
-)
-requests_stub.get = lambda *args, **kwargs: None
-sys.modules.setdefault("requests", requests_stub)
-
-from core.version_check import fetch_url
+from core import version_check
 
 
-class DummyResponse:
-    def __init__(self):
-        self.status_code = 200
-        self.text = "ok"
-        self.content = b"ok"
+class FetchUrlTests(unittest.TestCase):
+    def test_timeout_and_verify_passed(self):
+        with mock.patch.object(version_check.session, 'get') as mock_get:
+            version_check.fetch_url('https://example.com', verify_ssl=False)
+            mock_get.assert_called_once_with(
+                'https://example.com', headers={}, verify=False, timeout=version_check.TIMEOUT, stream=False
+            )
+            mock_get.return_value.raise_for_status.assert_called_once()
 
-    def raise_for_status(self):
-        pass
-
-
-class FetchUrlSSLContextTest(unittest.TestCase):
-    def _make_response(self):
-        return DummyResponse()
-
-    def test_context_restored_between_calls(self):
-        original = ssl._create_default_https_context
-        response = self._make_response()
-
-        with mock.patch('requests.get', return_value=response) as mock_get:
-            fetch_url('http://example.com', verify_ssl=False)
-            mock_get.assert_called_once_with('http://example.com', verify=False)
-            self.assertIs(ssl._create_default_https_context, original)
-
-        with mock.patch('requests.get', return_value=response) as mock_get:
-            fetch_url('http://example.com', verify_ssl=True)
-            mock_get.assert_called_once_with('http://example.com', verify=True)
-            self.assertIs(ssl._create_default_https_context, original)
+    def test_github_token_only_sent_to_github_api(self):
+        with mock.patch.dict('os.environ', {'GITHUB_TOKEN': 'abc'}), \
+                mock.patch.object(version_check.session, 'get') as mock_get:
+            version_check.fetch_url('https://api.github.com/repos/x/y')
+            self.assertEqual(mock_get.call_args.kwargs['headers'], {'Authorization': 'token abc'})
+            version_check.fetch_url('https://example.com')
+            self.assertEqual(mock_get.call_args.kwargs['headers'], {})
 
 
 if __name__ == '__main__':
