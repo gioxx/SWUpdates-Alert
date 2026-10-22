@@ -30,7 +30,7 @@ jobs:
       # Runs even when a check failed, so the versions found by the other checks are still saved.
       - name: Commit changes
         if: ${{ !cancelled() }}
-        uses: stefanzweifel/git-auto-commit-action@v7.1.0
+        uses: stefanzweifel/git-auto-commit-action@v7.2.0
         with:
           commit_message: Update version files
           file_pattern: updates/*
