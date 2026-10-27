@@ -6,7 +6,7 @@ from check import fetch_irfanview
 
 class IrfanViewFetchTests(unittest.TestCase):
     def test_version_parsed(self):
-        html = "Welcome to IrfanView 4.99"
+        html = "<li>IrfanView 32-bit</li><h2>Get IrfanView (<strong>version 4.99</strong>)</h2>"
         mock_resp = mock.Mock(text=html)
         with mock.patch('check.fetch_url', return_value=mock_resp):
             self.assertEqual(fetch_irfanview()['version'], '4.99')

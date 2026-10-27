@@ -53,7 +53,7 @@ def fetch_github_release(repo):
 
 
 def fetch_irfanview():
-    match = re.search(r"IrfanView\s*v?(\d+(?:\.\d+)*)", fetch_url(IRFANVIEW_URL).text, re.IGNORECASE)
+    match = re.search(r"version\s+(\d+\.\d+)", fetch_url(IRFANVIEW_URL).text, re.IGNORECASE)
     if match:
         return {"version": match.group(1), "url": IRFANVIEW_URL}
     return None
