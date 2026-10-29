@@ -24,6 +24,7 @@ For more details about the project, see the dedicated article on Gioxx's Wall: <
 | IrfanView  | IrfanView is a fast and compact image viewer for Windows. | [irfanview.com](https://www.irfanview.com/) |
 | NAPS2  | NAPS2 is free and open source scanning software for Windows, Mac and Linux. | [naps2.com](https://www.naps2.com/) |
 | Notepad++  | Notepad++ is a text and source code editor for use with Microsoft Windows. It supports tabbed editing, which allows working with multiple open files in one window. | [notepad-plus-plus.org](http://notepad-plus-plus.org/) |
+| PowerShell  | PowerShell is a cross-platform task automation solution made up of a command-line shell, a scripting language, and a configuration management framework. | [github.com/PowerShell](https://github.com/PowerShell/PowerShell) |
 | PuTTY  | PuTTY is a free and open-source terminal emulator, serial console and network file transfer application. | [chiark.greenend.org.uk/~sgtatham](https://www.chiark.greenend.org.uk/~sgtatham/putty/) |
 | Win32 Content Prep Tool  | Microsoft Win32 Content Prep Tool converts application installation files into the .intunewin format. | [github.com/microsoft](https://github.com/microsoft/Microsoft-Win32-Content-Prep-Tool) |
 | XML Notepad  | XML Notepad is an open-source XML editor written by Chris Lovett and published by Microsoft. | [microsoft.github.io/XmlNotepad](http://microsoft.github.io/XmlNotepad/) |
@@ -88,6 +89,7 @@ Per maggiori dettagli sul progetto puoi leggere l'articolo dedicato su Gioxx's W
 | IrfanView  | IrfanView è un visualizzatore di immagini veloce e compatto per Windows. | [irfanview.com](https://www.irfanview.com/) |
 | NAPS2  | NAPS2 è un software di scansione gratuito e open source per Windows, Mac e Linux. | [naps2.com](https://www.naps2.com/) |
 | Notepad++  | Notepad++ è un editor di testo e codice sorgente da utilizzare con Microsoft Windows. Supporta l'editing a schede, che consente di lavorare con più file aperti in un'unica finestra. | [notepad-plus-plus.org](http://notepad-plus-plus.org/) |
+| PowerShell  | PowerShell è una soluzione multipiattaforma per l'automazione delle attività, composta da una shell a riga di comando, un linguaggio di scripting e un framework di gestione della configurazione. | [github.com/PowerShell](https://github.com/PowerShell/PowerShell) |
 | PuTTY  | PuTTY è un emulatore di terminale, una console seriale e un'applicazione per il trasferimento di file in rete gratuita e open-source. | [chiark.greenend.org.uk/~sgtatham](https://www.chiark.greenend.org.uk/~sgtatham/putty/) |
 | Win32 Content Prep Tool  | Microsoft Win32 Content Prep Tool converte i file di installazione delle applicazioni nel formato .intunewin. | [github.com/microsoft](https://github.com/microsoft/Microsoft-Win32-Content-Prep-Tool) |
 | XML Notepad  | XML Notepad è un editor XML open-source scritto da Chris Lovett e pubblicato da Microsoft. | [microsoft.github.io/XmlNotepad](http://microsoft.github.io/XmlNotepad/) |

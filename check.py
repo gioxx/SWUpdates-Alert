@@ -84,6 +84,8 @@ CHECKS = [
      "\U0001F5A8️ NAPS2: new version available! {version} \nDownload from {url}"),
     ("Notepad++", lambda: fetch_github_release("notepad-plus-plus/notepad-plus-plus"), "LATEST_NPP",
      "\U0001F4DD Notepad➕➕: new version available! {version} \nDownload from {url}"),
+    ("PowerShell", lambda: fetch_github_release("PowerShell/PowerShell"), "LATEST_PWSH",
+     "\U0001F41A PowerShell: new version available! {version} \nDownload from {url}"),
     ("PuTTY", fetch_putty, "LATEST_PUTTY",
      "\U0001F50C PuTTY: new version available! {version} \nDownload from " + PUTTY_DOWNLOAD_URL),
     ("Win32 Content Prep Tool", lambda: fetch_github_release("microsoft/Microsoft-Win32-Content-Prep-Tool"), "LATEST_WIN32CPT",
