@@ -13,6 +13,8 @@ BROWSER_UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebK
 FIREFOX_URL = "https://product-details.mozilla.org/1.0/firefox_versions.json"
 FIRMA4NG_URL = "https://card.infocamere.it/infocard/FileDocManager/download?file=/firma4ng/Firma4ng_win.zip"
 IRFANVIEW_URL = "https://www.irfanview.com/"
+# Release metadata kept by the PowerShell team (also read by the official install-powershell.ps1).
+PWSH_METADATA_URL = "https://raw.githubusercontent.com/PowerShell/PowerShell/master/tools/metadata.json"
 # Official download mirror: /latest/ redirects to /<version>/. chiark itself is often unreachable from GitHub runners.
 PUTTY_URL = "https://the.earth.li/~sgtatham/putty/latest/"
 PUTTY_DOWNLOAD_URL = "https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html"
@@ -59,6 +61,14 @@ def fetch_irfanview():
     return None
 
 
+def fetch_powershell_lts():
+    tags = fetch_json(PWSH_METADATA_URL).get("LTSReleaseTag") or []
+    if not tags:
+        return None
+    tag = max(tags, key=lambda t: tuple(int(p) for p in t.lstrip("v").split("-")[0].split(".")))
+    return {"version": tag, "url": f"https://github.com/PowerShell/PowerShell/releases/tag/{tag}"}
+
+
 def fetch_putty():
     match = re.search(r"/putty/(\d+(?:\.\d+)+)/$", fetch_url(PUTTY_URL).url)
     return {"version": match.group(1)} if match else None
@@ -86,6 +96,8 @@ CHECKS = [
      "\U0001F4DD Notepad➕➕: new version available! {version} \nDownload from {url}"),
     ("PowerShell", lambda: fetch_github_release("PowerShell/PowerShell"), "LATEST_PWSH",
      "\U0001F41A PowerShell: new version available! {version} \nDownload from {url}"),
+    ("PowerShell LTS", fetch_powershell_lts, "LATEST_PWSH_LTS",
+     "\U0001F41A PowerShell LTS: new version available! {version} \nDownload from {url}"),
     ("PuTTY", fetch_putty, "LATEST_PUTTY",
      "\U0001F50C PuTTY: new version available! {version} \nDownload from " + PUTTY_DOWNLOAD_URL),
     ("Win32 Content Prep Tool", lambda: fetch_github_release("microsoft/Microsoft-Win32-Content-Prep-Tool"), "LATEST_WIN32CPT",
